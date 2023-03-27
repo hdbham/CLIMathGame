@@ -1,17 +1,23 @@
-﻿using System;
-
-internal class Program
+﻿internal class Program
 {
+    private static bool playing = true;
+
+    private static bool outofTime = false;
+    private static bool timerFinished = false;
+
     private static void Main(string[] args)
     {
         string name = GetName();
-
-        Menu(name);
+        do
+        {
+            Menu(name);
+        } while (playing == true);
     }
 
     static void Menu(string name)
     {
         var date = DateTime.UtcNow;
+        outofTime = false;
 
         Console.Clear();
 
@@ -25,7 +31,7 @@ internal class Program
         Q - Quit the program");
         Console.WriteLine("__________________________________________________________________________");
 
-        var gameChoice = Console.ReadLine();
+        var gameChoice = Console.ReadLine().Trim();
 
         switch (gameChoice.Trim().ToLower())
         {
@@ -44,6 +50,7 @@ internal class Program
             case "q":
                 Console.WriteLine("Goodbye");
                 Environment.Exit(1);
+                playing = false;
                 break;
             default:
                 Console.WriteLine("invalid input");
@@ -61,11 +68,12 @@ internal class Program
         int firstNumber;
         int secondNumber;
         int score = 0;
-        var incorrect = false;
+        var streak = true;
 
         do
         {
             Console.Clear();
+            timerFinished = false;
 
             if (gameType == "/")
             {
@@ -75,28 +83,74 @@ internal class Program
             }
             else
             {
-                firstNumber = random.Next(1, 9);
-                secondNumber = random.Next(1, 9);
+                firstNumber = random.Next(1, 20);
+                secondNumber = random.Next(1, 10);
             }
 
 
-            Console.WriteLine($"{firstNumber} {gameType} {secondNumber}");
-            var result = Console.ReadLine();
+            // Start timer
+            var startTime = DateTime.Now;
 
-            if (int.Parse(result) != GetCorrectAnswer(firstNumber, secondNumber, gameType))
+
+            var timerThread = new Thread(() =>
             {
-                Console.WriteLine("Game Over");
-                incorrect = true;
+                while (!timerFinished)
+                {
+                    var timeElapsed = DateTime.Now - startTime;
+                    Console.Write($"\rTime elapsed: {timeElapsed.TotalSeconds:F2} seconds");
+                    Thread.Sleep(5);
+                    
+                    if (timeElapsed.TotalSeconds > 30)
+                    {
+                        Console.WriteLine("\nGAME OVER - You took too long to answer! Guess the answer to continue");
+                        outofTime = true;
+                        break;
+                    }
+                }
+            });
+
+            timerThread.Start();
+
+            Console.WriteLine($"\n{firstNumber} {gameType} {secondNumber}\n");
+
+            var result = Console.ReadLine();
+            if (!int.TryParse(result, out var ans))
+            {
+                Console.WriteLine("Invalid input! Please enter a valid integer.");
+                return;
+            }
+
+            // Stop timer
+            timerFinished = true;
+
+            var endTime = DateTime.Now;
+
+            if (ans == GetCorrectAnswer(firstNumber, secondNumber, gameType))
+            {
+
+                Console.WriteLine($"Your answer was correct! Time taken: {(endTime-startTime).TotalSeconds:F2} seconds\nPress any key to continue");
+                score++;
+                Console.ReadLine();
             }
             else
             {
-                Console.WriteLine("Your answer was correct!");
-                score++;
+               Console.Clear();
+               Console.WriteLine("Game Over - Wrong Answer!");
+               streak = false;
             }
-        } while (incorrect == false);
-        Console.Clear();
-        Console.WriteLine($"your score is {score}");
+
+            if (outofTime == true) {
+                streak = false;
+            }
+
+
+        } while (streak == true);
+
+        Console.WriteLine($"Your score is {score}");
+        Console.ReadLine();
     }
+
+
 
     static int GetCorrectAnswer(int firstNumber, int secondNumber, string gameType)
     {
