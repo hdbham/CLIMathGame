@@ -1,9 +1,14 @@
-﻿internal class Program
+﻿using System.Collections.Generic;
+
+internal class Program
 {
     private static bool playing = true;
-
     private static bool outofTime = false;
     private static bool timerFinished = false;
+
+    private static DateTime date = DateTime.UtcNow;
+    private static List<string> games = new List<string>();
+
 
     private static void Main(string[] args)
     {
@@ -22,13 +27,15 @@
         Console.Clear();
 
         Console.WriteLine("__________________________________________________________________________");
-        Console.WriteLine($"Hello {name.ToUpper()} It's {date.DayOfWeek}. This is your math's game.\n");
+        Console.WriteLine($"Hello {name} It's {date.DayOfWeek}. This is your Maths game.\n");
         Console.WriteLine(@$"What game would you like to play today. Choose from the options below:
         A - Addition
         S - Subtraction
         M - Multiplication
         D - Division
-        Q - Quit the program");
+        Q - Quit the program
+        H - Show History");
+
         Console.WriteLine("__________________________________________________________________________");
 
         var gameChoice = Console.ReadLine().Trim();
@@ -36,16 +43,19 @@
         switch (gameChoice.Trim().ToLower())
         {
             case "a":
-                PlayGame("+", "Addition game selected");
+                PlayGame(name, "+", "Addition game selected");
                 break;
             case "s":
-                PlayGame("-", "Subtraction game selected");
+                PlayGame(name, "-", "Subtraction game selected");
                 break;
             case "m":
-                PlayGame("*", "Multiplication game selected");
+                PlayGame(name, "*", "Multiplication game selected");
                 break;
             case "d":
-                PlayGame("/", "Division game selected");
+                PlayGame(name, "/", "Division game selected");
+                break;
+            case "h":
+                showHistory();
                 break;
             case "q":
                 Console.WriteLine("Goodbye");
@@ -59,7 +69,7 @@
         }
     }
 
-    static void PlayGame(string gameType, string message)
+    static void PlayGame(string name, string operand, string message)
     {
         Console.WriteLine(message);
 
@@ -70,12 +80,15 @@
         int score = 0;
         var streak = true;
 
+        var words = message.Split(" ");
+        string gameType = words[0];
+
         do
         {
             Console.Clear();
             timerFinished = false;
 
-            if (gameType == "/")
+            if (operand == "/")
             {
                 var ints = GetDivisionNumbers(random);
                 firstNumber = ints[0];
@@ -88,30 +101,30 @@
             }
 
 
-            // Start timer
-            var startTime = DateTime.Now;
+            //// Start timer
+            //var startTime = DateTime.Now;
 
 
-            var timerThread = new Thread(() =>
-            {
-                while (!timerFinished)
-                {
-                    var timeElapsed = DateTime.Now - startTime;
-                    Console.Write($"\rTime elapsed: {timeElapsed.TotalSeconds:F2} seconds");
-                    Thread.Sleep(5);
+            //var timerThread = new Thread(() =>
+            //{
+            //    while (timer)
+            //    {
+            //        var timeElapsed = DateTime.Now - startTime;
+            //        Console.Write($"\rTime elapsed: {timeElapsed.TotalSeconds:F2} seconds");
+            //        Thread.Sleep(5);
                     
-                    if (timeElapsed.TotalSeconds > 30)
-                    {
-                        Console.WriteLine("\nGAME OVER - You took too long to answer! Guess the answer to continue");
-                        outofTime = true;
-                        break;
-                    }
-                }
-            });
+            //        if (timeElapsed.TotalSeconds > 30)
+            //        {
+            //            Console.WriteLine("\nGAME OVER - You took too long to answer! Guess the answer to continue");
+            //            outofTime = true;
+            //            break;
+            //        }
+            //    }
+            //});
 
-            timerThread.Start();
+            //timerThread.Start();
 
-            Console.WriteLine($"\n{firstNumber} {gameType} {secondNumber}\n");
+            Console.WriteLine($"\n{firstNumber} {operand} {secondNumber}\n");
 
             var result = Console.ReadLine();
             if (!int.TryParse(result, out var ans))
@@ -121,16 +134,16 @@
             }
 
             // Stop timer
-            timerFinished = true;
+            //timer = false; ;
 
-            var endTime = DateTime.Now;
+            //var endTime = DateTime.Now;
 
-            if (ans == GetCorrectAnswer(firstNumber, secondNumber, gameType))
+            if (ans == GetCorrectAnswer(firstNumber, secondNumber, operand))
             {
 
-                Console.WriteLine($"Your answer was correct! Time taken: {(endTime-startTime).TotalSeconds:F2} seconds\nPress any key to continue");
+                //Console.WriteLine($"Your answer was correct! Time taken: {(endTime-startTime).TotalSeconds:F2} seconds\nPress any key to continue");
                 score++;
-                Console.ReadLine();
+                //Console.ReadLine();
             }
             else
             {
@@ -146,15 +159,20 @@
 
         } while (streak == true);
 
-        Console.WriteLine($"Your score is {score}");
+        AddtoHistory(name, score, gameType);
+        Console.WriteLine($"Congratulations {name}! Your score for {gameType} is {score}");
         Console.ReadLine();
     }
 
-
-
-    static int GetCorrectAnswer(int firstNumber, int secondNumber, string gameType)
+    private static void AddtoHistory(string name, int gameScore, string gameType)
     {
-        switch (gameType)
+        games.Add($"{name} - {DateTime.Now} - {gameType}: {gameScore}");
+
+    }
+
+    static int GetCorrectAnswer(int firstNumber, int secondNumber, string operand)
+    {
+        switch (operand)
         {
             case "+":
                 return firstNumber + secondNumber;
@@ -165,8 +183,21 @@
             case "/":
                 return firstNumber / secondNumber;
             default:
-                throw new ArgumentException($"Invalid game type: {gameType}");
+                throw new ArgumentException($"Invalid game type: {operand}");
         }
+    }
+  static  void showHistory() {
+        Console.Clear();
+        Console.WriteLine("Games History");
+        Console.WriteLine("---------------------\n");
+
+        foreach (var game in games)
+        {
+            Console.WriteLine(game);
+        }
+        Console.WriteLine("---------------------\n");
+        Console.WriteLine("Press any key to continue");
+        Console.ReadLine();     
     }
 
     static int[] GetDivisionNumbers(Random random)
@@ -187,7 +218,7 @@
     {
         Console.WriteLine("Please enter your name!");
         var name = Console.ReadLine();
-        return name;
+        return name?.Substring(0,1).ToUpper() + name?.Substring(1,name.Length-1);
     }
 
 }
