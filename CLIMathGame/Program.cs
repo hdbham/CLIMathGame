@@ -8,11 +8,12 @@ internal class Program
 
     private static DateTime date = DateTime.UtcNow;
     private static List<string> games = new List<string>();
+    private static string name = "user";
 
 
     private static void Main(string[] args)
     {
-        string name = GetName();
+        name = GetName();
         do
         {
             Menu(name);
@@ -56,6 +57,11 @@ internal class Program
                 break;
             case "h":
                 showHistory();
+                break;
+            case "n":
+                Console.Clear();
+                name = GetName();
+                Menu(name);
                 break;
             case "q":
                 Console.WriteLine("Goodbye");
@@ -157,7 +163,7 @@ internal class Program
             }
 
 
-        } while (streak == true);
+        } while (streak);
 
         AddtoHistory(name, score, gameType);
         Console.WriteLine($"Congratulations {name}! Your score for {gameType} is {score}");
