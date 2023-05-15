@@ -1,37 +1,36 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {}
+    "net6.0": {}
   },
   "libraries": {},
   "projectFileDependencyGroups": {
-    "net7.0": []
+    "net6.0": []
   },
   "packageFolders": {
-    "/Users/admin/.nuget/packages/": {}
+    "/home/alexander/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/admin/Projects/CLIMathGame/CLIMathGame/CLIMathGame.csproj",
+      "projectUniqueName": "/hdd/temp/CLIMathGame/CLIMathGame/CLIMathGame.csproj",
       "projectName": "CLIMathGame",
-      "projectPath": "/Users/admin/Projects/CLIMathGame/CLIMathGame/CLIMathGame.csproj",
-      "packagesPath": "/Users/admin/.nuget/packages/",
-      "outputPath": "/Users/admin/Projects/CLIMathGame/CLIMathGame/obj/",
+      "projectPath": "/hdd/temp/CLIMathGame/CLIMathGame/CLIMathGame.csproj",
+      "packagesPath": "/home/alexander/.nuget/packages/",
+      "outputPath": "/hdd/temp/CLIMathGame/CLIMathGame/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/admin/.nuget/NuGet/NuGet.Config"
+        "/home/alexander/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net7.0"
+        "net6.0"
       ],
       "sources": {
-        "/usr/local/share/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "projectReferences": {}
         }
       },
@@ -42,16 +41,15 @@
       }
     },
     "frameworks": {
-      "net7.0": {
-        "targetAlias": "net7.0",
+      "net6.0": {
+        "targetAlias": "net6.0",
         "imports": [
           "net461",
           "net462",
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -60,7 +58,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.200/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.116/RuntimeIdentifierGraph.json"
       }
     }
   }
