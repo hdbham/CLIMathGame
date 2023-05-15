@@ -20,7 +20,6 @@ namespace CLIMathGame
 
             while (!gameOver)
             {
-                // Reset the console timer each time a new problem is generated
                 _consoleTimer = new ConsoleTimer(1000);
 
                 int firstNumber;
@@ -49,7 +48,6 @@ namespace CLIMathGame
                     return;
                 }
 
-                // Dispose of the console timer once the problem is solved
                 _consoleTimer.Dispose();
 
                 if (ans != Math.GetCorrectAnswer(firstNumber, secondNumber, operand))
