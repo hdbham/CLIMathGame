@@ -20,6 +20,7 @@ namespace CLIMathGame
 
             while (!gameOver)
             {
+
                 _consoleTimer = new ConsoleTimer(1000);
 
                 int firstNumber;
@@ -44,6 +45,7 @@ namespace CLIMathGame
 
                 if (!int.TryParse(Console.ReadLine(), out var ans))
                 {
+                    Console.Clear();
                     Console.WriteLine("Invalid input! Please enter a valid integer.");
                     return;
                 }
