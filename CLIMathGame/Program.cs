@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 namespace CLIMathGame;
-
+using static CLIMathGame.Menu;
 internal class Program
 {
     public static bool playing = true;

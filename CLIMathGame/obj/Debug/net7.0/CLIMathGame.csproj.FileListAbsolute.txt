@@ -1,0 +1,15 @@
+/Users/admin/Projects/CLIMathGame/CLIMathGame/obj/Debug/net7.0/CLIMathGame.csproj.AssemblyReference.cache
+/Users/admin/Projects/CLIMathGame/CLIMathGame/obj/Debug/net7.0/CLIMathGame.GeneratedMSBuildEditorConfig.editorconfig
+/Users/admin/Projects/CLIMathGame/CLIMathGame/obj/Debug/net7.0/CLIMathGame.AssemblyInfoInputs.cache
+/Users/admin/Projects/CLIMathGame/CLIMathGame/obj/Debug/net7.0/CLIMathGame.AssemblyInfo.cs
+/Users/admin/Projects/CLIMathGame/CLIMathGame/obj/Debug/net7.0/CLIMathGame.csproj.CoreCompileInputs.cache
+/Users/admin/Projects/CLIMathGame/CLIMathGame/bin/Debug/net7.0/CLIMathGame
+/Users/admin/Projects/CLIMathGame/CLIMathGame/bin/Debug/net7.0/CLIMathGame.deps.json
+/Users/admin/Projects/CLIMathGame/CLIMathGame/bin/Debug/net7.0/CLIMathGame.runtimeconfig.json
+/Users/admin/Projects/CLIMathGame/CLIMathGame/bin/Debug/net7.0/CLIMathGame.dll
+/Users/admin/Projects/CLIMathGame/CLIMathGame/bin/Debug/net7.0/CLIMathGame.pdb
+/Users/admin/Projects/CLIMathGame/CLIMathGame/obj/Debug/net7.0/CLIMathGame.dll
+/Users/admin/Projects/CLIMathGame/CLIMathGame/obj/Debug/net7.0/refint/CLIMathGame.dll
+/Users/admin/Projects/CLIMathGame/CLIMathGame/obj/Debug/net7.0/CLIMathGame.pdb
+/Users/admin/Projects/CLIMathGame/CLIMathGame/obj/Debug/net7.0/CLIMathGame.genruntimeconfig.cache
+/Users/admin/Projects/CLIMathGame/CLIMathGame/obj/Debug/net7.0/ref/CLIMathGame.dll

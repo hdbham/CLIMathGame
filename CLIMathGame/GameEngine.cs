@@ -1,27 +1,33 @@
-﻿
-using System;
-using static CLIMathGame.Helpers;
+﻿using System;
+using System.Threading;
+
 namespace CLIMathGame
 {
-	public class GameEngine
-	{
+    public static class GameEngine
+    {
+        private static ConsoleTimer _consoleTimer;
+        private static ConsoleKeyInfo _lastKeystroke;
+
         public static void PlayGame(string name, char operand, string message)
         {
+            Console.Clear();
             Console.WriteLine(message);
+
+            int score = 0;
+            var gameOver = false;
 
             var random = new Random();
 
-            int firstNumber;
-            int secondNumber;
-            int score = 0;
-            var streak = true;
-
-            var words = message.Split(" ");
-            string gameType = words[0];
-
-            do
+            while (!gameOver)
             {
+                // Reset the console timer each time a new problem is generated
+                _consoleTimer = new ConsoleTimer(1000);
+
+                int firstNumber;
+                int secondNumber;
+
                 Console.Clear();
+                Console.SetCursorPosition(0, 1);
 
                 if (operand == '/')
                 {
@@ -35,38 +41,34 @@ namespace CLIMathGame
                     secondNumber = random.Next(1, 10);
                 }
 
+                Console.WriteLine($"{firstNumber} {operand} {secondNumber}");
 
-
-                Console.WriteLine($"\n{firstNumber} {operand} {secondNumber}\n");
-
-                var result = Console.ReadLine();
-                if (!int.TryParse(result, out var ans))
+                if (!int.TryParse(Console.ReadLine(), out var ans))
                 {
                     Console.WriteLine("Invalid input! Please enter a valid integer.");
                     return;
                 }
 
+                // Dispose of the console timer once the problem is solved
+                _consoleTimer.Dispose();
 
-
-                if (ans == Math.GetCorrectAnswer(firstNumber, secondNumber, operand))
-                {
-
-                    score++;
-                }
-                else
+                if (ans != Math.GetCorrectAnswer(firstNumber, secondNumber, operand))
                 {
                     Console.Clear();
                     Console.WriteLine("Game Over - Wrong Answer!");
-                    streak = false;
+                    gameOver = true;
+                }
+                else
+                {
+                    score++;
                 }
 
+            }
 
-            } while (streak);
+            Helpers.AddtoHistory(name, score, message.Split(" ")[0]);
 
-            Helpers.AddtoHistory(name, score, gameType);
-            Console.WriteLine($"Congratulations {name}! Your score for {gameType} is {score}");
             Console.ReadLine();
         }
+
     }
 }
-

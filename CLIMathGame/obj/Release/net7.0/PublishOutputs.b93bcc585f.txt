@@ -1,0 +1,5 @@
+/Users/admin/Projects/CLIMathGame/CLIMathGame/bin/Release/net7.0/publish/CLIMathGame
+/Users/admin/Projects/CLIMathGame/CLIMathGame/bin/Release/net7.0/publish/CLIMathGame.dll
+/Users/admin/Projects/CLIMathGame/CLIMathGame/bin/Release/net7.0/publish/CLIMathGame.deps.json
+/Users/admin/Projects/CLIMathGame/CLIMathGame/bin/Release/net7.0/publish/CLIMathGame.runtimeconfig.json
+/Users/admin/Projects/CLIMathGame/CLIMathGame/bin/Release/net7.0/publish/CLIMathGame.pdb

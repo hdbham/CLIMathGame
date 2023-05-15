@@ -1,6 +1,7 @@
 ﻿using System;
 namespace CLIMathGame;
-using static CLIMathGame.GameEngine;
+
+using static System.Formats.Asn1.AsnWriter;
 
 
 	public class Helpers
@@ -8,8 +9,9 @@ using static CLIMathGame.GameEngine;
         public static void AddtoHistory(string name, int gameScore, string gameType)
         {
             Program.games.Add($"{name} - {DateTime.Now} - {gameType}: {gameScore}");
+            Console.WriteLine($"Congratulations {name}! Your score for {gameType} is {gameScore}");
 
-        }
+    }
 
     public static void showHistory()
         {
@@ -21,6 +23,7 @@ using static CLIMathGame.GameEngine;
             {
                 Console.WriteLine(game);
             }
+
             Console.WriteLine("---------------------\n");
             Console.WriteLine("Press any key to continue");
             Console.ReadLine();
